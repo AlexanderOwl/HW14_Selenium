@@ -56,7 +56,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CoursesPage_POM.cs" />
     <Compile Include="SeleniumTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
