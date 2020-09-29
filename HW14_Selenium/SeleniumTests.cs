@@ -96,45 +96,10 @@ namespace HW14_Selenium
             Assert.AreEqual("https://wizardsdev.com/", pageUrl);
         }
 
-        /// <summary>
-        /// Полуавтоматический тест)
-        /// </summary>
-        /*
-        [Test]
-        public void SingUpOnCourseByPressedFloatingButton()
-        {
-            chrome.Navigate().GoToUrl("https://deveducation.com/");
-
-            chrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            IWebElement signUpFloatingButton = chrome.FindElement(By.CssSelector("body > div.wrapper > main > div.fix-btn.active > button"));
-            signUpFloatingButton.Click();
-            IWebElement signUpCourse2Name = chrome.FindElement(By.CssSelector("#entry-popup-form > div:nth-child(1) > input"));
-            signUpCourse2Name.SendKeys("Test");
-            IWebElement signUpCourse2Tell = chrome.FindElement(By.CssSelector("#entry-popup-form > div:nth-child(2) > input"));
-            signUpCourse2Tell.SendKeys("000000000");
-            IWebElement signUpCourse2Email = chrome.FindElement(By.CssSelector("#entry-popup-form > div:nth-child(3) > input"));
-            signUpCourse2Email.SendKeys("soyam39399@qatw.net");
-            IWebElement dropdownCity = chrome.FindElement(By.Id("city-popup"));
-            var selectElementCity = new SelectElement(dropdownCity);
-            selectElementCity.SelectByIndex(2);
-            IWebElement dropdownCourse = chrome.FindElement(By.Id("course-popup"));
-            var selectElementCourse = new SelectElement(dropdownCourse);
-            selectElementCourse.SelectByIndex(2);
-            IWebElement popupButton = chrome.FindElement(By.CssSelector("#entry-popup-form > div:nth-child(6) > button.form__btn.field.form-btn.popup__button__valid.popup__button__valid__indent.g-recaptcha"));
-            popupButton.Click();
-            WebDriverWait wait = new WebDriverWait(chrome, TimeSpan.FromSeconds(100));
-            //Thread.Sleep(50000);//ПЕРЕДЕЛАТЬ  id recaptcha-verify-button
-            string pageUrl = chrome.Url;
-            Assert.AreEqual("https://lp.deveducation.com/course-v1/thank-you-page.html", pageUrl);
-        }*/
-
         [Test(Description = "Navigate from kyiv page to dnipro page")]
         public void ChangeBranchKyivToDnipro()
         {
             chrome.Navigate().GoToUrl("https://kyiv.deveducation.com/");
-
-
-            // chrome.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);  
             chrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             IWebElement elementPopup = chrome.FindElement(By.CssSelector("body > div.wrapper.sub > main > div.popups.subscribe-pop.closing-pop.show > div > button"));
             elementPopup.Click();
@@ -219,7 +184,34 @@ namespace HW14_Selenium
 
             Assert.AreEqual(false, actialResult);
         }
+        [Test(Description = "When in header change language to en must navigate to page with English localization")]
+        public void ChangeLanguageToEn()
+        {
+            IWebElement elementClickAllLanguage = chrome.FindElement(By.CssSelector("body > div.wrapper > div > header > div > div._header__lists > ul > li > button"));
+            elementClickAllLanguage.Click();
 
+            IWebElement elementEnLanguage = chrome.FindElement(By.CssSelector("body > div.wrapper > div > header > div > div._header__lists > ul > li > ul > li:nth-child(2) > a"));
+            elementEnLanguage.Click();
+
+            string pageUrl = chrome.Url;
+            Assert.AreEqual("https://deveducation.com/en/", pageUrl);
+        }     
+
+        [TestCase("https://deveducation.com/courses/", " li:nth-child(1) > a", Description = "Transition from the header in main menu to the page - Courses")]
+        [TestCase("https://deveducation.com/graduates/", " li:nth-child(2) > a", Description = "Transition from the header in main menu to the page - Graduates")]
+        public void GoToPageInHeaderFromMainMenu(string expectedUrl, string continuationSelector)
+        {
+            chrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            IWebElement elementPopup = chrome.FindElement(By.CssSelector("body > div.wrapper > main > div.popups.subscribe-pop.closing-pop.show > div > button"));
+            elementPopup.Click();
+
+            string selector = "body > div.wrapper > div > header > div > div._header__lists > nav > ul >" + continuationSelector;
+            IWebElement element = chrome.FindElement(By.CssSelector(selector));
+            element.Click();
+
+            string pageUrl = chrome.Url;
+            Assert.AreEqual(expectedUrl, pageUrl);
+        }
         [Test(Description = "Check online certificate")]
         public void CertificateAuthentication()
         {
@@ -247,38 +239,6 @@ namespace HW14_Selenium
             string pageUrl = chrome.Url;
             Assert.AreEqual("https://deveducation.com/verify/?token=c0b33fa6d86c1cf1a18c373e02e56b5f", pageUrl);
         }
-
-        [Test(Description = "When in header change language to en must navigate to page with English localization")]
-        public void ChangeLanguageToEn()
-        {
-            IWebElement elementClickAllLanguage = chrome.FindElement(By.CssSelector("body > div.wrapper > div > header > div > div._header__lists > ul > li > button"));
-            elementClickAllLanguage.Click();
-
-            IWebElement elementEnLanguage = chrome.FindElement(By.CssSelector("body > div.wrapper > div > header > div > div._header__lists > ul > li > ul > li:nth-child(2) > a"));
-            elementEnLanguage.Click();
-
-            string pageUrl = chrome.Url;
-            Assert.AreEqual("https://deveducation.com/en/", pageUrl);
-        }     
-
-
-        [TestCase("https://deveducation.com/courses/", " li:nth-child(1) > a", Description = "Transition from the header in main menu to the page - Courses")]
-        [TestCase("https://deveducation.com/graduates/", " li:nth-child(2) > a", Description = "Transition from the header in main menu to the page - Graduates")]
-        public void GoToPageInHeaderFromMainMenu(string expectedUrl, string continuationSelector)
-        {
-            chrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            IWebElement elementPopup = chrome.FindElement(By.CssSelector("body > div.wrapper > main > div.popups.subscribe-pop.closing-pop.show > div > button"));
-            elementPopup.Click();
-
-            string selector = "body > div.wrapper > div > header > div > div._header__lists > nav > ul >" + continuationSelector;
-            IWebElement element = chrome.FindElement(By.CssSelector(selector));
-            element.Click();
-
-            string pageUrl = chrome.Url;
-            Assert.AreEqual(expectedUrl, pageUrl);
-        }
-
-
         [Test(Description = "Checking for the presence of an image (on the page https://kyiv.deveducation.com/courses/java/")]
         public void CheckDisplayedImg()
         {
@@ -305,8 +265,7 @@ namespace HW14_Selenium
             string text = element.Text;
             string year = DateTime.Now.Year.ToString();
             Assert.AreEqual(year, text);
-        }
-       
+        }       
         [SetUp]
         public void Start()
         {
