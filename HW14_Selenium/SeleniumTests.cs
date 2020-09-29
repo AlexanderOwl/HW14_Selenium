@@ -15,8 +15,8 @@ namespace HW14_Selenium
     {
         IWebDriver chrome;
 
-           [Test]
-        public void GoToDeveducationKyev()
+        [Test(Description = "On click Kyiv city on map must navigate to spb branch page")]
+        public void GoToDeveducationKyiv()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/");
 
@@ -26,7 +26,7 @@ namespace HW14_Selenium
             Assert.AreEqual("https://kyiv.deveducation.com/", pageUrl);
         }
 
-        [Test]
+        [Test(Description = "On click Dnipro city on map must navigate to spb branch page")]
         public void GoToDeveducationDnipro()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/");
@@ -37,7 +37,7 @@ namespace HW14_Selenium
             Assert.AreEqual("https://dnipro.deveducation.com/", pageUrl);
         }
 
-        [Test]
+        [Test(Description = "On click Kharkiv city on map must navigate to spb branch page")]
         public void GoToDeveducationKharkiv()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/");
@@ -48,7 +48,7 @@ namespace HW14_Selenium
             Assert.AreEqual("https://kharkiv.deveducation.com/", pageUrl);
         }
 
-        [Test]
+        [Test(Description = "On click Baku city on map must navigate to spb branch page")]
         public void GoToDeveducationBaku()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/");
@@ -59,7 +59,7 @@ namespace HW14_Selenium
             Assert.AreEqual("https://baku.deveducation.com/", pageUrl);
         }
 
-        [Test]
+        [Test(Description = "On click SPB city on map must navigate to spb branch page")]
         public void GoToDeveducationSPB()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/");
@@ -70,7 +70,7 @@ namespace HW14_Selenium
             Assert.AreEqual("https://spb.deveducation.com/", pageUrl);
         }
 
-        [Test]
+        [Test(Description = "On click ico Facebook must navigate to deveduaction page on facebook")]
         public void GoToFacebookInFooter()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/");
@@ -84,7 +84,7 @@ namespace HW14_Selenium
             Assert.AreEqual("https://www.facebook.com/IT.DevEducation/", pageUrl);
         }
 
-        [Test]
+        [Test(Description = "On click logo wizardsdev must navigate to their site")]
         public void GoToWizardsDevInKyiv()
         {
             chrome.Navigate().GoToUrl("https://kyiv.deveducation.com/");
@@ -96,7 +96,10 @@ namespace HW14_Selenium
             Assert.AreEqual("https://wizardsdev.com/", pageUrl);
         }
 
-
+        /// <summary>
+        /// Полуавтоматический тест)
+        /// </summary>
+        /*
         [Test]
         public void SingUpOnCourseByPressedFloatingButton()
         {
@@ -123,9 +126,9 @@ namespace HW14_Selenium
             //Thread.Sleep(50000);//ПЕРЕДЕЛАТЬ  id recaptcha-verify-button
             string pageUrl = chrome.Url;
             Assert.AreEqual("https://lp.deveducation.com/course-v1/thank-you-page.html", pageUrl);
-        }
+        }*/
 
-        [Test]
+        [Test(Description = "Navigate from kyiv page to dnipro page")]
         public void ChangeBranchKyivToDnipro()
         {
             chrome.Navigate().GoToUrl("https://kyiv.deveducation.com/");
@@ -146,7 +149,7 @@ namespace HW14_Selenium
             Assert.AreEqual("https://dnipro.deveducation.com/", pageUrl);
         }
 
-        [Test]
+        [Test(Description = "Navigate to first article on news")]
         public void GoToArticleOnEventsPage()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/events/");
@@ -157,7 +160,8 @@ namespace HW14_Selenium
             string pageUrl = text.Text;
             Assert.AreEqual("Обучение на реальном проекте – это бесценный опыт и практика!", pageUrl);
         }
-        [Test]
+
+        [Test(Description = "Button must load new artiles on news page, in total 9")]
         public void LoadMoreButtonOnEventsPage()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/events/");
@@ -168,7 +172,7 @@ namespace HW14_Selenium
         }
 
 
-        [Test]
+        [Test(Description = "Navigate to first article on blog")]
         public void GoToArticleOnBlogPage()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/blog/");
@@ -179,7 +183,7 @@ namespace HW14_Selenium
             Assert.AreEqual("https://deveducation.com/blog/kakoy-yazyk-programmirovaniya-vybrat-dlya-starta/", pageUrl);
         }
 
-        [Test]
+        [Test(Description = "Button must load new artiles on blog page, in total 9")]
         public void LoadMoreButtonOnBlogPage()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/blog/");
@@ -202,9 +206,21 @@ namespace HW14_Selenium
             string pageUrl = chrome.Url;
             Assert.AreEqual(expextedUrl, pageUrl);
         }
+        [Test(Description = "Сhecking of sending an empty newsletter subscription form")]
+        public void SendITSubscribeOnlySpaces()
+        {
+            chrome.Navigate().GoToUrl("https://deveducation.com/events/");
 
+            IWebElement elementFieldEmail = chrome.FindElement(By.Id("blog_email"));
+            elementFieldEmail.SendKeys(" ");
 
-        [Test]
+            IWebElement elementButtonSend = chrome.FindElement(By.Id("blog_btn"));
+            bool actialResult = elementButtonSend.Enabled;
+
+            Assert.AreEqual(false, actialResult);
+        }
+
+        [Test(Description = "Check online certificate")]
         public void CertificateAuthentication()
         {
             chrome.Navigate().GoToUrl("https://dnipro.deveducation.com/courses/");
@@ -221,9 +237,9 @@ namespace HW14_Selenium
             IWebElement elementButtonSend = chrome.FindElement(By.CssSelector("#checker > div:nth-child(3) > button"));
             elementButtonSend.Click();
 
-            chrome.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
+            chrome.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(25);
 
-            IWebElement elementButtonOpenCertificate = chrome.FindElement(By.CssSelector("body > div.wrapper.sub > main > div.popups.text-pop.show > div > div > div.sertificate-btn > a"));
+            IWebElement elementButtonOpenCertificate = chrome.FindElement(By.XPath("/html/body/div[2]/main/div[6]/div/div/div[2]/a"));
             elementButtonOpenCertificate.Click();
 
             chrome.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
@@ -232,7 +248,7 @@ namespace HW14_Selenium
             Assert.AreEqual("https://deveducation.com/verify/?token=c0b33fa6d86c1cf1a18c373e02e56b5f", pageUrl);
         }
 
-        [Test]
+        [Test(Description = "When in header change language to en must navigate to page with English localization")]
         public void ChangeLanguageToEn()
         {
             IWebElement elementClickAllLanguage = chrome.FindElement(By.CssSelector("body > div.wrapper > div > header > div > div._header__lists > ul > li > button"));
@@ -243,22 +259,7 @@ namespace HW14_Selenium
 
             string pageUrl = chrome.Url;
             Assert.AreEqual("https://deveducation.com/en/", pageUrl);
-        }
-
-
-        [Test]
-        public void SendITSubscribeOnlySpaces()
-        {
-            chrome.Navigate().GoToUrl("https://deveducation.com/events/");
-
-            IWebElement elementFieldEmail = chrome.FindElement(By.Id("blog_email"));
-            elementFieldEmail.SendKeys(" ");
-
-            IWebElement elementButtonSend = chrome.FindElement(By.Id("blog_btn"));
-            bool actialResult = elementButtonSend.Enabled;
-
-            Assert.AreEqual(false, actialResult);
-        }        
+        }     
 
 
         [TestCase("https://deveducation.com/courses/", " li:nth-child(1) > a", Description = "Transition from the header in main menu to the page - Courses")]
@@ -278,7 +279,7 @@ namespace HW14_Selenium
         }
 
 
-        [Test]
+        [Test(Description = "Checking for the presence of an image (on the page https://kyiv.deveducation.com/courses/java/")]
         public void CheckDisplayedImg()
         {
             chrome.Navigate().GoToUrl("https://kyiv.deveducation.com/courses/java/");
@@ -287,7 +288,25 @@ namespace HW14_Selenium
             Assert.AreEqual(true, actialResult);
         }
 
+        [Test(Description = "Chek navigate to 404 page if url does not exist")]
+        public void GoTo404()
+        {
+            chrome.Navigate().GoToUrl("https://deveducation.com/");
+            IWebElement element = chrome.FindElement(By.ClassName("title-404")); 
+            string text = element.Text;
+            Assert.AreEqual("404", text);
+        }
 
+        [Test(Description = "Year in footer must be actual")]
+        public void FooterYear()
+        {
+            chrome.Navigate().GoToUrl("https://deveducation.com/");
+            IWebElement element = chrome.FindElement(By.ClassName("ofooter-year"));
+            string text = element.Text;
+            string year = DateTime.Now.Year.ToString();
+            Assert.AreEqual(year, text);
+        }
+       
         [SetUp]
         public void Start()
         {
