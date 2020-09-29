@@ -14,63 +14,8 @@ namespace HW14_Selenium
     public class BasicSiteWorkTest
     {
         IWebDriver chrome;
-
-        [Test(Description = "On click Kyiv city on map must navigate to spb branch page")]
-        public void GoToDeveducationKyiv()
-        {
-            chrome.Navigate().GoToUrl("https://deveducation.com/");
-
-            IWebElement element = chrome.FindElement(By.CssSelector("body > div.wrapper > main > section > div > div.map-container > div > a.map-pointer.kyiv-point"));
-            element.Click();
-            string pageUrl = chrome.Url;
-            Assert.AreEqual("https://kyiv.deveducation.com/", pageUrl);
-        }
-
-        [Test(Description = "On click Dnipro city on map must navigate to spb branch page")]
-        public void GoToDeveducationDnipro()
-        {
-            chrome.Navigate().GoToUrl("https://deveducation.com/");
-
-            IWebElement element = chrome.FindElement(By.CssSelector("body > div.wrapper > main > section > div > div.map-container > div > a.map-pointer.dnipro-point"));
-            element.Click();
-            string pageUrl = chrome.Url;
-            Assert.AreEqual("https://dnipro.deveducation.com/", pageUrl);
-        }
-
-        [Test(Description = "On click Kharkiv city on map must navigate to spb branch page")]
-        public void GoToDeveducationKharkiv()
-        {
-            chrome.Navigate().GoToUrl("https://deveducation.com/");
-
-            IWebElement element = chrome.FindElement(By.CssSelector("body > div.wrapper > main > section > div > div.map-container > div > a.map-pointer.kharkiv-point"));
-            element.Click();
-            string pageUrl = chrome.Url;
-            Assert.AreEqual("https://kharkiv.deveducation.com/", pageUrl);
-        }
-
-        [Test(Description = "On click Baku city on map must navigate to spb branch page")]
-        public void GoToDeveducationBaku()
-        {
-            chrome.Navigate().GoToUrl("https://deveducation.com/");
-
-            IWebElement element = chrome.FindElement(By.CssSelector("body > div.wrapper > main > section > div > div.map-container > div > a.map-pointer.baku-point"));
-            element.Click();
-            string pageUrl = chrome.Url;
-            Assert.AreEqual("https://baku.deveducation.com/", pageUrl);
-        }
-
-        [Test(Description = "On click SPB city on map must navigate to spb branch page")]
-        public void GoToDeveducationSPB()
-        {
-            chrome.Navigate().GoToUrl("https://deveducation.com/");
-
-            IWebElement element = chrome.FindElement(By.CssSelector("body > div.wrapper > main > section > div > div.map-container > div > a.map-pointer.piter-point"));
-            element.Click();
-            string pageUrl = chrome.Url;
-            Assert.AreEqual("https://spb.deveducation.com/", pageUrl);
-        }
-
-        [Test(Description = "On click ico Facebook must navigate to deveduaction page on facebook")]
+        
+        [Test(Description = "On click ico Facebook must navigate to deveduaction page on facebook")]////
         public void GoToFacebookInFooter()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/");
@@ -84,7 +29,7 @@ namespace HW14_Selenium
             Assert.AreEqual("https://www.facebook.com/IT.DevEducation/", pageUrl);
         }
 
-        [Test(Description = "On click logo wizardsdev must navigate to their site")]
+        [Test(Description = "On click logo wizardsdev must navigate to their site")]////
         public void GoToWizardsDevInKyiv()
         {
             chrome.Navigate().GoToUrl("https://kyiv.deveducation.com/");
@@ -114,7 +59,7 @@ namespace HW14_Selenium
             Assert.AreEqual("https://dnipro.deveducation.com/", pageUrl);
         }
 
-        [Test(Description = "Navigate to first article on news")]
+        [Test(Description = "Navigate to first article on news")]////
         public void GoToArticleOnEventsPage()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/events/");
@@ -126,7 +71,7 @@ namespace HW14_Selenium
             Assert.AreEqual("Обучение на реальном проекте – это бесценный опыт и практика!", pageUrl);
         }
 
-        [Test(Description = "Button must load new artiles on news page, in total 9")]
+        [Test(Description = "Button must load new artiles on news page, in total 9")]////
         public void LoadMoreButtonOnEventsPage()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/events/");
@@ -137,7 +82,7 @@ namespace HW14_Selenium
         }
 
 
-        [Test(Description = "Navigate to first article on blog")]
+        [Test(Description = "Navigate to first article on blog")]////
         public void GoToArticleOnBlogPage()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/blog/");
@@ -148,7 +93,7 @@ namespace HW14_Selenium
             Assert.AreEqual("https://deveducation.com/blog/kakoy-yazyk-programmirovaniya-vybrat-dlya-starta/", pageUrl);
         }
 
-        [Test(Description = "Button must load new artiles on blog page, in total 9")]
+        [Test(Description = "Button must load new artiles on blog page, in total 9")]////
         public void LoadMoreButtonOnBlogPage()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/blog/");
@@ -158,12 +103,12 @@ namespace HW14_Selenium
             Assert.AreEqual(9, recordsCount);
         }
 
-        [TestCase("https://kyiv.deveducation.com/", "kyiv-point", Description = "Transition from the main menu to the site of the branch in Kyiv")]
-        [TestCase("https://dnipro.deveducation.com/", "dnipro-point", Description = "Transition from the main menu to the site of the branch in Dnipro")]
-        [TestCase("https://kharkiv.deveducation.com/", "kharkiv-point", Description = "Transition from the main menu to the site of the branch in Kharkiv")]
+        [TestCase("https://kyiv.deveducation.com/", "kyiv-point", Description = "Transition from the main menu to the site of the branch in Kyiv")] ////
+        [TestCase("https://dnipro.deveducation.com/", "dnipro-point", Description = "Transition from the main menu to the site of the branch in Dnipro")] ////
+        [TestCase("https://kharkiv.deveducation.com/", "kharkiv-point", Description = "Transition from the main menu to the site of the branch in Kharkiv")] ////
         [TestCase("https://baku.deveducation.com/", "baku-point", Description = "Transition from the main menu to the site of the branch in Baku")]
-        [TestCase("https://spb.deveducation.com/", "piter-point", Description = "Transition from the main menu to the site of the branch in St.Peterburg")]
-        public void GoToDeveducationKyev(string expextedUrl, string point)
+        [TestCase("https://spb.deveducation.com/", "piter-point", Description = "Transition from the main menu to the site of the branch in St.Peterburg")] ////
+        public void GoFromDeveducationKyiv(string expextedUrl, string point)
         {
             string selector = "body > div.wrapper > main > section > div > div.map-container > div > a.map-pointer." + point;
             IWebElement element = chrome.FindElement(By.CssSelector(selector));
@@ -171,7 +116,7 @@ namespace HW14_Selenium
             string pageUrl = chrome.Url;
             Assert.AreEqual(expextedUrl, pageUrl);
         }
-        [Test(Description = "Сhecking of sending an empty newsletter subscription form")]
+        [Test(Description = "Сhecking of sending an empty newsletter subscription form")] ///
         public void SendITSubscribeOnlySpaces()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/events/");
@@ -184,7 +129,7 @@ namespace HW14_Selenium
 
             Assert.AreEqual(false, actialResult);
         }
-        [Test(Description = "When in header change language to en must navigate to page with English localization")]
+        [Test(Description = "When in header change language to en must navigate to page with English localization")] ///
         public void ChangeLanguageToEn()
         {
             IWebElement elementClickAllLanguage = chrome.FindElement(By.CssSelector("body > div.wrapper > div > header > div > div._header__lists > ul > li > button"));
