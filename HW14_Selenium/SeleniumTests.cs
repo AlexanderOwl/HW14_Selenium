@@ -15,7 +15,7 @@ namespace HW14_Selenium
     {
         IWebDriver chrome;
         
-        [Test(Description = "On click ico Facebook must navigate to deveduaction page on facebook")]////
+        [Test(Description = "On click ico Facebook must navigate to deveduaction page on facebook")] 
         public void GoToFacebookInFooter()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/");
@@ -29,18 +29,39 @@ namespace HW14_Selenium
             Assert.AreEqual("https://www.facebook.com/IT.DevEducation/", pageUrl);
         }
 
-        [Test(Description = "On click logo wizardsdev must navigate to their site")]////
-        public void GoToWizardsDevInKyiv()
+        [TestCase("https://wizardsdev.com/","wizardsdev", Description = "On click logo wizardsdev must navigate to their site")]
+        [TestCase("https://www.finversia.ru/", "finversia", Description = "On click logo finversia must navigate to their site")]
+        [TestCase("https://xcritical.software/", "xcritical", Description = "On click logo xcritical must navigate to their site")]
+        [TestCase("https://necsi.edu/", "necsi", Description = "On click logo necsi must navigate to their site")]
+        [TestCase("https://linguatrip.com/en/", "linguatrip", Description = "On click logo linguatrip must navigate to their site")]        
+        [TestCase("https://beaxy.com/", "beaxy", Description = "On click logo beaxy must navigate to their site")]        
+        public void GoToPartnersInKyiv(string url,string alt)
         {
             chrome.Navigate().GoToUrl("https://kyiv.deveducation.com/");
             chrome.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            IWebElement element = chrome.FindElement(By.XPath("/html/body/div[2]/main/section[3]/ul/li[2]/a"));
+            IWebElement element = chrome.FindElement(By.CssSelector($"img[alt=\"{alt}\"]"));
             element.Click();
             chrome.SwitchTo().Window(chrome.WindowHandles.Last());
             string pageUrl = chrome.Url;
-            Assert.AreEqual("https://wizardsdev.com/", pageUrl);
+            Assert.AreEqual(url, pageUrl);
         }
 
+        [TestCase("https://kyiv.deveducation.com/courses/frontend/", "1", Description = "Transition to profession FrontEnd in branch Kyiv")]
+        [TestCase("https://kyiv.deveducation.com/courses/basic/", "2", Description = "Transition to profession С# in branch Kyiv")]
+        [TestCase("https://kyiv.deveducation.com/courses/qa-manual-automation/", "3", Description = "Transition to profession QA in branch Kyiv")]
+        [TestCase("https://kyiv.deveducation.com/courses/java/", "4", Description = "Transition to profession Java in branch Kyiv")]
+        [TestCase("https://kyiv.deveducation.com/courses/bookkeeping/", "5", Description = "Transition to profession Bookkeeping in branch Kyiv")]
+        [TestCase("https://kyiv.deveducation.com/courses/react-native/", "6", Description = "Transition to profession Mobile React Native in branch Kyiv")]
+        public void GoToProfession(string expextedUrl, string point)
+        {
+            chrome.Navigate().GoToUrl("https://kyiv.deveducation.com/courses/");
+
+            string selector = $"body > div.wrapper.sub > footer > div > ul.standard-footer__courses-list > li:nth-child({point}) > a";
+            IWebElement element = chrome.FindElement(By.CssSelector(selector));
+            element.Click();
+            string pageUrl = chrome.Url;
+            Assert.AreEqual(expextedUrl, pageUrl);
+        }
         [Test(Description = "Navigate from kyiv page to dnipro page")]
         public void ChangeBranchKyivToDnipro()
         {
@@ -59,7 +80,7 @@ namespace HW14_Selenium
             Assert.AreEqual("https://dnipro.deveducation.com/", pageUrl);
         }
 
-        [Test(Description = "Navigate to first article on news")]////
+        [Test(Description = "Navigate to first article on news")] 
         public void GoToArticleOnEventsPage()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/events/");
@@ -71,7 +92,7 @@ namespace HW14_Selenium
             Assert.AreEqual("Обучение на реальном проекте – это бесценный опыт и практика!", pageUrl);
         }
 
-        [Test(Description = "Button must load new artiles on news page, in total 9")]////
+        [Test(Description = "Button must load new artiles on news page, in total 9")] 
         public void LoadMoreButtonOnEventsPage()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/events/");
@@ -82,7 +103,7 @@ namespace HW14_Selenium
         }
 
 
-        [Test(Description = "Navigate to first article on blog")]////
+        [Test(Description = "Navigate to first article on blog")] 
         public void GoToArticleOnBlogPage()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/blog/");
@@ -93,7 +114,7 @@ namespace HW14_Selenium
             Assert.AreEqual("https://deveducation.com/blog/kakoy-yazyk-programmirovaniya-vybrat-dlya-starta/", pageUrl);
         }
 
-        [Test(Description = "Button must load new artiles on blog page, in total 9")]////
+        [Test(Description = "Button must load new artiles on blog page, in total 9")] 
         public void LoadMoreButtonOnBlogPage()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/blog/");
@@ -102,12 +123,12 @@ namespace HW14_Selenium
             int recordsCount = chrome.FindElement(By.ClassName("events-list")).FindElements(By.TagName("li")).Count;
             Assert.AreEqual(9, recordsCount);
         }
-
-        [TestCase("https://kyiv.deveducation.com/", "kyiv-point", Description = "Transition from the main menu to the site of the branch in Kyiv")] ////
-        [TestCase("https://dnipro.deveducation.com/", "dnipro-point", Description = "Transition from the main menu to the site of the branch in Dnipro")] ////
-        [TestCase("https://kharkiv.deveducation.com/", "kharkiv-point", Description = "Transition from the main menu to the site of the branch in Kharkiv")] ////
+        
+        [TestCase("https://kyiv.deveducation.com/", "kyiv-point", Description = "Transition from the main menu to the site of the branch in Kyiv")]  
+        [TestCase("https://dnipro.deveducation.com/", "dnipro-point", Description = "Transition from the main menu to the site of the branch in Dnipro")]  
+        [TestCase("https://kharkiv.deveducation.com/", "kharkiv-point", Description = "Transition from the main menu to the site of the branch in Kharkiv")]  
         [TestCase("https://baku.deveducation.com/", "baku-point", Description = "Transition from the main menu to the site of the branch in Baku")]
-        [TestCase("https://spb.deveducation.com/", "piter-point", Description = "Transition from the main menu to the site of the branch in St.Peterburg")] ////
+        [TestCase("https://spb.deveducation.com/", "piter-point", Description = "Transition from the main menu to the site of the branch in St.Peterburg")]  
         public void GoFromDeveducationKyiv(string expextedUrl, string point)
         {
             string selector = "body > div.wrapper > main > section > div > div.map-container > div > a.map-pointer." + point;
@@ -116,7 +137,7 @@ namespace HW14_Selenium
             string pageUrl = chrome.Url;
             Assert.AreEqual(expextedUrl, pageUrl);
         }
-        [Test(Description = "Сhecking of sending an empty newsletter subscription form")] ///
+        [Test(Description = "Сhecking of sending an empty newsletter subscription form")] 
         public void SendITSubscribeOnlySpaces()
         {
             chrome.Navigate().GoToUrl("https://deveducation.com/events/");
@@ -129,7 +150,7 @@ namespace HW14_Selenium
 
             Assert.AreEqual(false, actialResult);
         }
-        [Test(Description = "When in header change language to en must navigate to page with English localization")] ///
+        [Test(Description = "When in header change language to en must navigate to page with English localization")] 
         public void ChangeLanguageToEn()
         {
             IWebElement elementClickAllLanguage = chrome.FindElement(By.CssSelector("body > div.wrapper > div > header > div > div._header__lists > ul > li > button"));
